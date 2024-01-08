@@ -1,0 +1,26 @@
+version: "3"
+networks:
+  micro-net:
+    driver: bridge
+volumes:
+  api-gateway-node-modules:
+  flight-service-node-modules:
+services:
+  api_gateway:
+    build: ./API_Gateway_Flights
+    networks:
+      - micro-net
+    ports:
+      - "3009:3009"
+    volumes:
+      - ./API_Gateway_Flights:/developer/nodejs/api-gateway
+      - api-gateway-node-modules:/developer/nodejs/api-gateway/node_modules
+  flight_service:
+    build: ./Flights-Service
+    networks:
+      - micro-net
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./Flights-Service:/developer/flight-service
+      - flight-service-node-modules:/developer/flight-service/node_modules
